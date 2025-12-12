@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css';
+import '@fontsource/cinzel';
+import '@fontsource/inter';
+import { Image } from 'astro:assets';
+import logoImage from '../assets/logo.jpg';
 
 interface Props {
 	title: string;
@@ -12,56 +16,105 @@ const { title } = Astro.props;
 <html lang="fr" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Portfolio Artiste Tatoueur" />
+		<meta name="description" content="L'Art Mûri - Mickaël Kalfayan - Artiste Tatoueur à Mirepoix" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{title} | L'Art Mûri</title>
 	</head>
 	<body class="bg-[#050505] text-white min-h-screen flex flex-col">
 		<!-- Minimal Header -->
-		<header class="fixed w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center">
-			<a href="/" class="text-2xl font-bold tracking-tighter uppercase font-heading">
-				KRAM<span class="text-[var(--color-teal)]">.</span>INK
+		<header class="fixed w-full z-50 px-8 py-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-[4px]">
+			<a href="/" class="flex items-center gap-3 group relative z-50">
+                <div class="w-16 h-16 rounded-full overflow-hidden border border-white/20 group-hover:border-[var(--color-primary)] transition-colors">
+                    <Image src={logoImage} alt="Logo L'Art Mûri" class="w-full h-full object-cover" />
+                </div>
+				<span class="text-xl font-bold tracking-tighter uppercase font-heading">
+				L'Art <span class="text-[var(--color-primary)]">Mûri</span>
+				</span>
 			</a>
 			<nav class="hidden md:flex gap-8 text-sm tracking-widest uppercase font-medium">
-				<a href="/" class="hover:text-[var(--color-teal)] transition-colors">Home</a>
-				<a href="/gallery" class="hover:text-[var(--color-teal)] transition-colors">Portfolio</a>
-				<a href="/booking" class="hover:text-[var(--color-teal)] transition-colors">Booking</a>
+				<a href="/" class="hover:text-[var(--color-primary)] transition-colors">Accueil</a>
+				<a href="/gallery" class="hover:text-[var(--color-primary)] transition-colors">Portfolio</a>
+				<a href="/booking" class="hover:text-[var(--color-primary)] transition-colors">Booking</a>
 			</nav>
-            <button class="md:hidden text-2xl">☰</button>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl relative z-50 focus:outline-none">☰</button>
+
+            <!-- Mobile Menu Overlay -->
+            <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-md z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] translate-y-4 data-[open=true]:translate-y-0 data-[open=true]:opacity-100 data-[open=true]:pointer-events-auto">
+                <a href="/" class="text-4xl font-heading font-bold uppercase text-transparent text-outline hover:text-outline-primary transition-all duration-300 mobile-link">Accueil</a>
+                <a href="/gallery" class="text-4xl font-heading font-bold uppercase text-transparent text-outline hover:text-outline-primary transition-all duration-300 mobile-link delay-100">Portfolio</a>
+                <a href="/booking" class="text-4xl font-heading font-bold uppercase text-transparent text-outline hover:text-outline-primary transition-all duration-300 mobile-link delay-200">Booking</a>
+            </div>
 		</header>
 
-		<main class="flex-grow">
+		<main class="flex-grow pt-24">
 			<slot />
 		</main>
+
+        <script>
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let isMenuOpen = false;
+
+            menuBtn?.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                // Toggle Menu Visibility
+                if (isMenuOpen) {
+                    mobileMenu?.setAttribute('data-open', 'true');
+                    menuBtn.innerHTML = '✕';
+                } else {
+                    mobileMenu?.setAttribute('data-open', 'false');
+                    menuBtn.innerHTML = '☰';
+                }
+            });
+
+            // Close menu when link clicked
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    isMenuOpen = false;
+                    mobileMenu?.classList.add('opacity-0', 'pointer-events-none');
+                    menuBtn!.innerHTML = '☰';
+                });
+            });
+        </script>
 
 		<!-- Bold Footer -->
 		<footer class="bg-black py-20 px-4 md:px-10 border-t border-white/10 relative overflow-hidden">
             <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 relative z-10">
                 <div>
-                     <h2 class="text-6xl md:text-8xl font-heading font-bold uppercase leading-[0.85] mb-8">
-                        Eternal<br/>
-                        <span class="text-outline">Tattoo</span>
+                     <h2 class="text-6xl md:text-8xl font-heading font-bold uppercase leading-[1.0] mb-8">
+                        L'Art<br/>
+                        <span class="text-outline">Mûri</span>
                     </h2>
                     <p class="text-gray-400 max-w-md font-light">
                         Art corporel unique et personnalisé. Chaque projet est une collaboration pour marquer votre histoire.
                     </p>
+                    <div class="mt-8 pt-8 border-t border-white/10">
+                        <p class="font-heading font-bold uppercase tracking-widest text-sm text-[var(--color-primary)]">L'Art Mûrit</p>
+                        <p class="text-gray-400 text-sm mt-1">67 rue Victor Hugo<br/>09500 Mirepoix</p>
+                    </div>
                 </div>
                 <div class="flex flex-col justify-end items-start md:items-end gap-4">
-                    <a href="/booking" class="px-8 py-3 bg-[var(--color-teal)] text-white font-heading font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
+                    <a href="/booking" class="px-8 py-3 bg-[var(--color-primary)] text-white font-heading font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
                         Prendre RDV
                     </a>
-                    <div class="flex gap-6 mt-4">
-                        <a href="#" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Instagram</a>
-                        <a href="#" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Email</a>
+                    <div class="flex gap-6 mt-4 md:mt-0">
+                        <a href="/" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Accueil</a>
+                        <a href="/gallery" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Portfolio</a>
+                        <a href="/booking" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Booking</a>
+                    </div>
+                    <div class="flex gap-6 mt-2">
+                        <a href="https://www.instagram.com/lartmurit/?hl=fr" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Instagram</a>
+                        <a href="mailto:contact@lartmuri.com" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Email</a>
                     </div>
                 </div>
             </div>
             <!-- Background Text Decoration -->
             <div class="absolute bottom-[-5%] left-0 w-full text-center pointer-events-none select-none opacity-5">
                 <span class="text-[12rem] md:text-[20rem] font-heading font-bold uppercase text-white whitespace-nowrap">
-                    INK & ART
+                    L'ART MURI
                 </span>
             </div>
 		</footer>

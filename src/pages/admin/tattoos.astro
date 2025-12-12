@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import TattooManager from '../../components/admin/TattooManager';
+---
+
+<AdminLayout title="Gestion Tatouages | Admin">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-heading font-bold text-white">Mes Tatouages</h1>
+    </div>
+    
+    <TattooManager client:load />
+</AdminLayout>

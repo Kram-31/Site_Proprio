@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import DashboardStats from '../../components/admin/DashboardStats';
+---
+
+<AdminLayout title="Dashboard | Admin">
+    <h1 class="text-4xl font-heading font-bold text-white mb-8">Tableau de Bord</h1>
+    
+    <!-- Dynamic Stats -->
+    <DashboardStats client:load />
+
+</AdminLayout>

@@ -3,12 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 ---
 
-<Layout title="KRAM INK | Booking">
+<Layout title="L'Art Mûri | Réservation">
     <section class="pt-32 pb-24 px-4 bg-[#050505] min-h-screen relative overflow-hidden">
         <!-- Decoration -->
-        <div class="absolute top-1/4 left-[-10%] w-[500px] h-[500px] bg-[var(--color-teal)] rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
+        <div class="absolute top-1/4 left-[-10%] w-[500px] h-[500px] bg-[var(--color-primary)] rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
 
-        <SectionTitle title="Booking" subtitle="Start your Project" />
+        <SectionTitle title="Réservation" subtitle="Lancez votre Projet" />
 
         <div class="max-w-2xl mx-auto mt-16 bg-gray-900/30 p-8 md:p-12 border border-white/10 backdrop-blur-sm">
             <form class="space-y-8" action="#" method="POST">
@@ -16,28 +16,28 @@ import SectionTitle from '../components/SectionTitle.astro';
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-2">
                         <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Nom Complet</label>
-                        <input type="text" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="John Doe" required />
+                        <input type="text" name="name" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-primary)] focus:outline-none transition-colors" placeholder="John Doe" required />
                     </div>
                     <div class="flex flex-col gap-2">
                          <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Email</label>
-                        <input type="email" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="john@example.com" required />
+                        <input type="email" name="email" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-primary)] focus:outline-none transition-colors" placeholder="john@example.com" required />
                     </div>
                 </div>
 
                 <!-- Project Details -->
                  <div class="flex flex-col gap-2">
                     <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Description du projet</label>
-                    <textarea rows="4" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="Décrivez votre idée, le style souhaité, et la symbolique..." required></textarea>
+                    <textarea name="project" rows="4" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-primary)] focus:outline-none transition-colors" placeholder="Décrivez votre idée, le style souhaité, et la symbolique..." required></textarea>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                      <div class="flex flex-col gap-2">
                         <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Emplacement</label>
-                        <input type="text" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="Avant-bras, Cuisse..." required />
+                        <input type="text" name="placement" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-primary)] focus:outline-none transition-colors" placeholder="Avant-bras, Cuisse..." required />
                     </div>
                      <div class="flex flex-col gap-2">
                         <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Taille approximative (cm)</label>
-                        <input type="text" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="ex: 15x10cm" required />
+                        <input type="text" name="size" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-primary)] focus:outline-none transition-colors" placeholder="ex: 15x10cm" required />
                     </div>
                 </div>
 
@@ -45,7 +45,7 @@ import SectionTitle from '../components/SectionTitle.astro';
                  <div class="grid md:grid-cols-2 gap-8">
                      <div class="flex flex-col gap-2">
                         <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Budget Envisagé</label>
-                        <select class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors">
+                        <select name="budget" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-primary)] focus:outline-none transition-colors">
                             <option>Moins de 150€</option>
                             <option>150€ - 300€</option>
                             <option>300€ - 600€</option>
@@ -54,17 +54,106 @@ import SectionTitle from '../components/SectionTitle.astro';
                     </div>
                      <div class="flex flex-col gap-2">
                         <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Disponibilités</label>
-                        <input type="text" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="Semaine, Samedi..." />
+                        <input type="text" name="availability" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-primary)] focus:outline-none transition-colors" placeholder="Semaine, Samedi..." />
                     </div>
                 </div>
 
                 <div class="pt-8 text-center">
-                    <button type="submit" class="w-full md:w-auto px-12 py-4 bg-white text-black font-heading font-bold uppercase tracking-widest hover:bg-[var(--color-teal)] hover:text-white transition-colors">
+                    <button type="submit" id="submit-btn" class="w-full md:w-auto px-12 py-4 bg-white text-black font-heading font-bold uppercase tracking-widest hover:bg-[var(--color-primary)] hover:text-white transition-colors">
                         Envoyer la demande
                     </button>
-                    <p class="mt-4 text-xs text-gray-500">Réponse sous 48h-72h. Vérifiez vos spams.</p>
+                    <p id="form-status" class="mt-4 text-sm font-bold text-[var(--color-primary)] hidden"></p>
+                    <p class="mt-2 text-xs text-gray-500">Réponse sous 48h-72h. Vérifiez vos spams.</p>
                 </div>
             </form>
         </div>
     </section>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
+        <div class="relative bg-[#111] border border-[var(--color-primary)] p-10 max-w-md w-full mx-4 text-center transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="w-16 h-16 rounded-full border-2 border-[var(--color-primary)] flex items-center justify-center mx-auto mb-6 text-[var(--color-primary)]">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h3 class="font-heading font-bold uppercase text-2xl mb-4 text-white">Demande Reçue</h3>
+            <p class="text-gray-400 mb-8 font-light">
+                Merci pour votre projet. Je vais l'étudier avec attention et je reviens vers vous sous 48h-72h.
+            </p>
+            <button id="close-modal" class="px-8 py-3 bg-[var(--color-primary)] text-white font-heading font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                Fermer
+            </button>
+        </div>
+    </div>
 </Layout>
+
+<script>
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const statusMsg = document.getElementById('form-status'); // Keeping it for errors
+    const modal = document.getElementById('success-modal');
+    const modalContent = document.getElementById('modal-content');
+    const closeModalBtn = document.getElementById('close-modal');
+
+    function showModal() {
+        if(modal && modalContent) {
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+    }
+
+    function hideModal() {
+        if(modal && modalContent) {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('pointer-events-none');
+            }, 300);
+        }
+    }
+
+    closeModalBtn?.addEventListener('click', hideModal);
+
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Envoi en cours...';
+        }
+
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+
+        try {
+            const response = await fetch('/api/booking', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Success - Show Modal
+                showModal();
+                form.reset();
+                if(statusMsg) statusMsg.classList.add('hidden');
+            } else {
+                throw new Error(result.message || 'Erreur lors de l\'envoi');
+            }
+        } catch (error) {
+            if(statusMsg) {
+                statusMsg.textContent = error instanceof Error ? error.message : 'Une erreur est survenue.';
+                statusMsg.classList.remove('hidden', 'text-[var(--color-primary)]');
+                statusMsg.classList.add('text-red-500');
+            }
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'ENVOYER LA DEMANDE';
+            }
+        }
+    });
+</script>

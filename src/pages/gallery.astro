@@ -2,25 +2,28 @@
 import Layout from '../layouts/Layout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import TattooCard from '../components/TattooCard.astro';
-import { getCollection } from 'astro:content';
+import { supabase } from '../lib/supabase';
 
-const tattoos = await getCollection('tattoos', ({ data }) => {
-  return data.status === 'done';
-});
+// Fetch tattoos from Supabase
+const { data: fetchedTattoos } = await supabase
+  .from('tattoos')
+  .select('*')
+  .eq('status', 'done')
+  .order('published_date', { ascending: false });
 
-// Extract unique tags
-const allTags = [...new Set(tattoos.flatMap(t => t.data.tags))];
+const tattoos = fetchedTattoos || [];
+const allTags = [...new Set(tattoos.flatMap(t => t.tags || []))];
 ---
 
-<Layout title="KRAM INK | Gallery">
+<Layout title="L'Art Mûri | Galerie">
     <section class="pt-32 pb-12 px-4 bg-[#050505] min-h-screen">
-        <SectionTitle title="The Collection" subtitle="Portfolio" />
+        <SectionTitle title="Le Portfolio" subtitle="Galerie" />
         
         <!-- Filters -->
         <div class="max-w-7xl mx-auto mb-12 flex flex-col items-center gap-6">
             <div class="flex flex-wrap justify-center gap-4">
-                <button class="filter-btn active px-6 py-2 border border-white bg-white text-black font-heading font-bold uppercase tracking-widest hover:bg-[var(--color-teal)] hover:text-white transition-all" data-filter="all">
-                    All
+                <button class="filter-btn active px-6 py-2 border border-white bg-white text-black font-heading font-bold uppercase tracking-widest hover:bg-[var(--color-primary)] hover:text-white transition-all" data-filter="all">
+                    Tout
                 </button>
                 {allTags.map(tag => (
                     <button class="filter-btn px-6 py-2 border border-white/30 text-white font-heading font-bold uppercase tracking-widest hover:border-white hover:bg-white hover:text-black transition-all" data-filter={tag}>
@@ -33,28 +36,28 @@ const allTags = [...new Set(tattoos.flatMap(t => t.data.tags))];
             <label class="flex items-center gap-3 cursor-pointer group">
                 <div class="relative">
                     <input type="checkbox" id="healed-toggle" class="sr-only peer">
-                    <div class="w-14 h-8 bg-gray-800 border border-white/30 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[var(--color-teal)] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-[var(--color-teal)]"></div>
+                    <div class="w-14 h-8 bg-gray-800 border border-white/30 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[var(--color-primary)] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-[var(--color-primary)]"></div>
                 </div>
-                <span class="font-heading font-bold uppercase tracking-widest text-sm text-gray-400 group-hover:text-white transition-colors">Show Healed Only</span>
+                <span class="font-heading font-bold uppercase tracking-widest text-sm text-gray-400 group-hover:text-white transition-colors">Cicatrisés uniquement</span>
             </label>
         </div>
 
         <!-- Gallery Grid -->
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
             {tattoos.map(tattoo => (
-                <div class="tattoo-item transition-all duration-500" data-tags={JSON.stringify(tattoo.data.tags)} data-healed={tattoo.data.tags.includes('healed')}> <!-- Assuming 'healed' is a tag -->
+                <div class="tattoo-item group" data-tags={JSON.stringify(tattoo.tags)}>
                     <TattooCard 
-                        title={tattoo.data.title}
-                        image={tattoo.data.image}
-                        tags={tattoo.data.tags}
-                        slug={tattoo.slug}
+                        title={tattoo.title}
+                        image={tattoo.image_url}
+                        tags={tattoo.tags}
+                        id={tattoo.id} 
                     />
                 </div>
             ))}
         </div>
         
         <div id="no-results" class="hidden text-center py-20">
-            <p class="font-heading text-2xl uppercase text-gray-500">No tattoos found matching these filters.</p>
+            <p class="font-heading text-2xl uppercase text-gray-500">Aucun tatouage ne correspond à ces filtres.</p>
         </div>
     </section>
 </Layout>

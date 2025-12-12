@@ -1,0 +1,8 @@
+{
+  "name": "Test Client",
+  "email": "test@client.com",
+  "status": "new",
+  "project": "Test Project Desc",
+  "appointmentDate": "ad",
+  "notes": "Budget: Moins de 150€\nPlacement: kadkad\n\nEnvoyé depuis le site web."
+}

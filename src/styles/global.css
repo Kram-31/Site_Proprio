@@ -2,34 +2,19 @@
 
 @theme {
   --color-dark: #050505;
-  --color-teal: #2C7A7B;
-  --color-teal-dim: #1D5354;
+  --color-primary: #d4a373;
+  /* Gold/Bronze like aesthetic for tattoo */
+  --color-primary-dim: #a9805b;
   --color-light: #F5F5F5;
   --color-gray-dark: #1A1A1A;
-  
-  --font-heading: 'Oswald', sans-serif;
+
+  --font-heading: 'Cinzel', serif;
   --font-body: 'Inter', sans-serif;
-  
+
   --animate-float: float 6s ease-in-out infinite;
 }
 
 @layer base {
-  @font-face {
-    font-family: 'Oswald';
-    font-style: normal;
-    font-weight: 200 700;
-    font-display: swap;
-    src: url('https://fonts.gstatic.com/s/oswald/v49/TK3iWkUHHAIjg75oxSD03l0.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2') format('woff2');
-  }
-
   body {
     background-color: var(--color-dark);
     color: white;
@@ -37,9 +22,15 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
     text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 }
 
@@ -48,15 +39,55 @@
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
     color: transparent;
   }
-  
-  .text-outline-teal {
-    -webkit-text-stroke: 1px var(--color-teal);
+
+  .text-outline-primary {
+    -webkit-text-stroke: 1px var(--color-primary);
     color: transparent;
+  }
+
+  /* Cinematic Image Hover Effect (Dynamic but Elegant) */
+  .img-reveal-container {
+    position: relative;
+    overflow: hidden;
+    /* Soft shadow instead of border */
+    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    transition: all 0.5s ease;
+  }
+
+  /* No Flash Effect (::after removed) */
+
+  .img-reveal-container:hover {
+    box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 163, 115, 0.2);
+  }
+
+  .img-reveal-container img {
+    /* Moody start */
+    filter: grayscale(100%) brightness(0.9) contrast(1.1);
+    transform: scale(1.0);
+    transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Long smooth cinematiz zoom */
+    will-change: transform, filter;
+  }
+
+  .img-reveal-container:hover img {
+    /* Reveal */
+    filter: grayscale(0%) brightness(1.05) contrast(1.05);
+    transform: scale(1.08);
+    /* Deep zoom */
   }
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }

@@ -8,7 +8,7 @@ const tattoos = defineCollection({
         gallery: z.array(image()).optional(),
         tags: z.array(z.string()),
         status: z.enum(['done', 'flash']),
-        publishedDate: z.date(),
+        publishedDate: z.coerce.date(),
     }),
 });
 
@@ -35,8 +35,21 @@ const global = defineCollection({
     })
 });
 
+const clients = defineCollection({
+    type: 'data',
+    schema: z.object({
+        name: z.string().optional(), // Slug is usually the ID, but Keystatic saves 'name' field too if configured
+        email: z.string().email(),
+        status: z.enum(['new', 'deposit', 'booked', 'done', 'cancelled']),
+        project: z.string(),
+        appointmentDate: z.string().or(z.date()).transform((str) => new Date(str)), // Keystatic dates are strings
+        notes: z.string().optional(),
+    }).strict()
+});
+
 export const collections = {
     tattoos,
     guests,
     global,
+    clients,
 };

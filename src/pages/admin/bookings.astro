@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import BookingManager from '../../components/admin/BookingManager';
+---
+
+<AdminLayout title="Gestion Bookings | Admin">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-heading font-bold text-white">Demandes de RDV</h1>
+    </div>
+    
+    <BookingManager client:load />
+</AdminLayout>
