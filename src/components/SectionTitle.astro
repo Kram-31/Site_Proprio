@@ -10,7 +10,7 @@ const { title, subtitle, align = 'center' } = Astro.props;
 const alignClass = align === 'left' ? 'text-center md:text-left items-center md:items-start' : align === 'right' ? 'text-center md:text-right items-center md:items-end' : 'text-center items-center';
 ---
 
-<div class={`flex flex-col ${alignClass} py-20 relative`}>
+<div class={`flex flex-col ${alignClass} py-20 relative overflow-hidden w-full`}>
     <span class="font-heading font-bold uppercase tracking-[0.2em] text-sm md:text-base text-[var(--color-primary)] mb-2 block relative z-10">
         {subtitle}
     </span>
