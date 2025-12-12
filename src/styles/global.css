@@ -70,7 +70,8 @@
     will-change: transform, filter;
   }
 
-  .img-reveal-container:hover img {
+  .img-reveal-container:hover img,
+  .mobile-revealed img {
     /* Reveal */
     filter: grayscale(0%) brightness(1.05) contrast(1.05);
     transform: scale(1.08);

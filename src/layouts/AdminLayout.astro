@@ -19,15 +19,33 @@ import '../styles/global.css';
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-[#050505] text-white min-h-screen flex font-sans">
+	<body class="bg-[#050505] text-white min-h-screen flex flex-col md:flex-row font-sans">
         
+        <!-- Mobile Header -->
+        <header class="md:hidden h-16 bg-black border-b border-white/10 flex items-center justify-between px-4 sticky top-0 z-40">
+            <span class="text-[var(--color-primary)] font-bold text-lg tracking-widest uppercase">L'Art Mûrit Admin</span>
+            <button id="admin-menu-btn" class="text-white hover:text-[var(--color-primary)] focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- Sidebar Overlay -->
+        <div id="admin-sidebar-overlay" class="fixed inset-0 bg-black/80 z-40 hidden md:hidden glass-overlay trigger-close"></div>
+
         <!-- Sidebar -->
-        <aside class="w-64 bg-black border-r border-white/10 flex-shrink-0 fixed h-full z-50 hidden md:flex flex-col">
+        <aside id="admin-sidebar" class="w-64 bg-black border-r border-white/10 flex-shrink-0 fixed md:sticky top-0 h-screen z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col">
             <div class="h-20 flex items-center justify-center border-b border-white/10">
-                <span class="text-[var(--color-primary)] font-bold text-xl tracking-widest uppercase">L'Art Mûri</span>
+                <span class="text-[var(--color-primary)] font-bold text-xl tracking-widest uppercase">L'Art Mûrit</span>
+                <button class="md:hidden absolute right-4 text-gray-400 hover:text-white trigger-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
             
-            <nav class="flex-1 p-6 space-y-2 font-sans">
+            <nav class="flex-1 p-6 space-y-2 font-sans overflow-y-auto">
                 <a href="/admin/dashboard" class="block px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded transition-colors uppercase tracking-wider text-sm">
                     Dashboard
                 </a>
@@ -42,7 +60,7 @@ import '../styles/global.css';
                 </a>
             </nav>
 
-            <div class="p-6 border-t border-white/10">
+            <div class="p-6 border-t border-white/10 bg-black">
                 <button id="logout-btn" class="w-full text-left text-red-500 hover:text-red-400 uppercase tracking-wider text-sm">
                     Déconnexion
                 </button>
@@ -50,13 +68,33 @@ import '../styles/global.css';
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 md:ml-64 p-8 overflow-y-auto">
+        <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
             <slot />
         </main>
 
         <script>
             import { supabase } from '../lib/supabase';
             
+            // Mobile Menu Logic
+            const menuBtn = document.getElementById('admin-menu-btn');
+            const sidebar = document.getElementById('admin-sidebar');
+            const overlay = document.getElementById('admin-sidebar-overlay');
+            const closeTriggers = document.querySelectorAll('.trigger-close');
+
+            if (menuBtn && sidebar && overlay) {
+                menuBtn.addEventListener('click', () => {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.remove('hidden');
+                });
+
+                closeTriggers.forEach(trigger => {
+                    trigger.addEventListener('click', () => {
+                        sidebar.classList.add('-translate-x-full');
+                        overlay.classList.add('hidden');
+                    });
+                });
+            }
+
             // Logout Logic
             const logoutBtn = document.getElementById('logout-btn');
             if (logoutBtn) {

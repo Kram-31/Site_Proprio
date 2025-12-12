@@ -24,13 +24,13 @@ import tatoo4 from '../assets/tattoos/tatoo4.png';
 import tatoo5 from '../assets/tattoos/tatoo5.png';
 ---
 
-<Layout title="L'Art Mûri | Tatoueur">
+<Layout title="L'Art Mûrit | Tatoueur">
 	<!-- HERO SECTION -->
 	<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
 		<div class="absolute inset-0 z-0 opacity-40">
 			<div class="h-full w-full relative overflow-hidden">
                 <div class="parallax-bg w-full h-[120%] -translate-y-[10%] relative" data-speed="-0.5">
-                    <Image src={heroBg} alt="L'Art Mûri Background" class="w-full h-full object-cover" />
+                    <Image src={heroBg} alt="L'Art Mûrit Background" class="w-full h-full object-cover" />
                 </div>
             </div>
 		</div>
@@ -42,7 +42,7 @@ import tatoo5 from '../assets/tattoos/tatoo5.png';
                 Histoires encrées
             </span>
 			<h1 class="text-5xl md:text-[9rem] font-heading font-bold uppercase leading-tight mix-blend-overlay text-white opacity-90 animate-[scaleIn_1.5s_ease-out]">
-				L'Art <span class="text-outline">Mûri</span>
+				L'Art <span class="text-outline">Mûrit</span>
 			</h1>
             <a href="/booking" class="group relative mt-12 px-10 py-4 overflow-hidden border border-white/20 bg-white/5 text-white font-heading font-bold uppercase tracking-widest hover:border-[var(--color-primary)] transition-all duration-300">
                 <span class="relative z-10 group-hover:text-black transition-colors duration-300">Réserver une Séance</span>
@@ -114,7 +114,7 @@ import tatoo5 from '../assets/tattoos/tatoo5.png';
                     ))}
                 </ul>
             </div>
-            <div class="relative h-[600px] hidden md:block overflow-hidden group img-reveal-container rounded-sm">
+            <div class="relative block w-full h-[500px] md:h-[600px] overflow-hidden group img-reveal-container rounded-sm">
                  <Image src={tatoo3} class="absolute top-0 left-0 w-full h-full object-cover" alt="Studio Vibe" />
             </div>
          </div>
@@ -170,4 +170,23 @@ import tatoo5 from '../assets/tattoos/tatoo5.png';
             }
         });
     });
+
+    // Mobile Image Reveal on Scroll
+    const revealContainers = document.querySelectorAll('.img-reveal-container');
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('mobile-revealed');
+                } else {
+                     // Optional: remove class to re-trigger effect when scrolling back up
+                     entry.target.classList.remove('mobile-revealed');
+                }
+            });
+        }, { threshold: 0.2 }); // Trigger when 20% visible
+
+        revealContainers.forEach(container => {
+            revealObserver.observe(container);
+        });
+    }
 </script>

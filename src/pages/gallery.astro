@@ -15,7 +15,7 @@ const tattoos = fetchedTattoos || [];
 const allTags = [...new Set(tattoos.flatMap(t => t.tags || []))];
 ---
 
-<Layout title="L'Art Mûri | Galerie">
+<Layout title="L'Art Mûrit | Galerie">
     <section class="pt-32 pb-12 px-4 bg-[#050505] min-h-screen">
         <SectionTitle title="Le Portfolio" subtitle="Galerie" />
         
@@ -32,14 +32,6 @@ const allTags = [...new Set(tattoos.flatMap(t => t.tags || []))];
                 ))}
             </div>
             
-            <!-- Healed Toggle -->
-            <label class="flex items-center gap-3 cursor-pointer group">
-                <div class="relative">
-                    <input type="checkbox" id="healed-toggle" class="sr-only peer">
-                    <div class="w-14 h-8 bg-gray-800 border border-white/30 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[var(--color-primary)] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-[var(--color-primary)]"></div>
-                </div>
-                <span class="font-heading font-bold uppercase tracking-widest text-sm text-gray-400 group-hover:text-white transition-colors">Cicatrisés uniquement</span>
-            </label>
         </div>
 
         <!-- Gallery Grid -->
@@ -64,27 +56,20 @@ const allTags = [...new Set(tattoos.flatMap(t => t.tags || []))];
 
 <script>
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const healedToggle = document.getElementById('healed-toggle') as HTMLInputElement;
     const items = document.querySelectorAll('.tattoo-item');
     const noResults = document.getElementById('no-results');
 
     let currentFilter = 'all';
-    let showHealedOnly = false;
 
     function filterItems() {
         let visibleCount = 0;
 
         items.forEach(item => {
             const tags = JSON.parse((item as HTMLElement).dataset.tags || '[]');
-            const isHealed = (item as HTMLElement).dataset.healed === 'true'; // Depends on how we mark healed. simpler to just use tags.
-            // Let's assume 'healed' is just a tag for now, but the toggle forces it.
-            // Actually, if healed is a separate boolean in CMS it would be better, but mapped to tags in plan.
-            // I'll assume 'healed' is a tag value.
-
+            
             const matchesFilter = currentFilter === 'all' || tags.includes(currentFilter);
-            const matchesHealed = !showHealedOnly || tags.includes('healed'); 
 
-            if (matchesFilter && matchesHealed) {
+            if (matchesFilter) {
                 (item as HTMLElement).style.display = 'block';
                 // Add fade in animation?
                  (item as HTMLElement).style.opacity = '1';
@@ -115,10 +100,5 @@ const allTags = [...new Set(tattoos.flatMap(t => t.tags || []))];
             currentFilter = btn.getAttribute('data-filter') || 'all';
             filterItems();
         });
-    });
-
-    healedToggle?.addEventListener('change', (e) => {
-        showHealedOnly = (e.target as HTMLInputElement).checked;
-        filterItems();
     });
 </script>
