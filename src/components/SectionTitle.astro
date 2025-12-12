@@ -7,7 +7,7 @@ interface Props {
 
 const { title, subtitle, align = 'center' } = Astro.props;
 
-const alignClass = align === 'left' ? 'text-left items-start' : align === 'right' ? 'text-right items-end' : 'text-center items-center';
+const alignClass = align === 'left' ? 'text-center md:text-left items-center md:items-start' : align === 'right' ? 'text-center md:text-right items-center md:items-end' : 'text-center items-center';
 ---
 
 <div class={`flex flex-col ${alignClass} py-20 relative`}>
