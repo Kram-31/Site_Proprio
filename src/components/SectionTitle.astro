@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  align?: 'left' | 'center' | 'right';
+}
+
+const { title, subtitle, align = 'center' } = Astro.props;
+
+const alignClass = align === 'left' ? 'text-left items-start' : align === 'right' ? 'text-right items-end' : 'text-center items-center';
+---
+
+<div class={`flex flex-col ${alignClass} py-20 relative`}>
+    <span class="font-heading font-bold uppercase tracking-[0.2em] text-sm md:text-base text-[var(--color-teal)] mb-2 block relative z-10">
+        {subtitle}
+    </span>
+    <h2 class="font-heading font-bold uppercase text-5xl md:text-8xl relative z-10 leading-[0.9]">
+        {title}
+    </h2>
+    
+    <!-- Background Watermark -->
+    <span class="absolute top-1/2 -translate-y-1/2 opacity-5 text-8xl md:text-[10rem] font-heading font-bold uppercase whitespace-nowrap pointer-events-none select-none w-full skew-y-[-2deg]">
+        {title}
+    </span>
+</div>

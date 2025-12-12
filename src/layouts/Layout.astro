@@ -1,0 +1,69 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Portfolio Artiste Tatoueur" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-[#050505] text-white min-h-screen flex flex-col">
+		<!-- Minimal Header -->
+		<header class="fixed w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center">
+			<a href="/" class="text-2xl font-bold tracking-tighter uppercase font-heading">
+				KRAM<span class="text-[var(--color-teal)]">.</span>INK
+			</a>
+			<nav class="hidden md:flex gap-8 text-sm tracking-widest uppercase font-medium">
+				<a href="/" class="hover:text-[var(--color-teal)] transition-colors">Home</a>
+				<a href="/gallery" class="hover:text-[var(--color-teal)] transition-colors">Portfolio</a>
+				<a href="/booking" class="hover:text-[var(--color-teal)] transition-colors">Booking</a>
+			</nav>
+            <button class="md:hidden text-2xl">☰</button>
+		</header>
+
+		<main class="flex-grow">
+			<slot />
+		</main>
+
+		<!-- Bold Footer -->
+		<footer class="bg-black py-20 px-4 md:px-10 border-t border-white/10 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 relative z-10">
+                <div>
+                     <h2 class="text-6xl md:text-8xl font-heading font-bold uppercase leading-[0.85] mb-8">
+                        Eternal<br/>
+                        <span class="text-outline">Tattoo</span>
+                    </h2>
+                    <p class="text-gray-400 max-w-md font-light">
+                        Art corporel unique et personnalisé. Chaque projet est une collaboration pour marquer votre histoire.
+                    </p>
+                </div>
+                <div class="flex flex-col justify-end items-start md:items-end gap-4">
+                    <a href="/booking" class="px-8 py-3 bg-[var(--color-teal)] text-white font-heading font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
+                        Prendre RDV
+                    </a>
+                    <div class="flex gap-6 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Instagram</a>
+                        <a href="#" class="text-gray-400 hover:text-white uppercase text-sm tracking-widest">Email</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Background Text Decoration -->
+            <div class="absolute bottom-[-5%] left-0 w-full text-center pointer-events-none select-none opacity-5">
+                <span class="text-[12rem] md:text-[20rem] font-heading font-bold uppercase text-white whitespace-nowrap">
+                    INK & ART
+                </span>
+            </div>
+		</footer>
+	</body>
+</html>

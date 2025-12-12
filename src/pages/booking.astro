@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+---
+
+<Layout title="KRAM INK | Booking">
+    <section class="pt-32 pb-24 px-4 bg-[#050505] min-h-screen relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-1/4 left-[-10%] w-[500px] h-[500px] bg-[var(--color-teal)] rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
+
+        <SectionTitle title="Booking" subtitle="Start your Project" />
+
+        <div class="max-w-2xl mx-auto mt-16 bg-gray-900/30 p-8 md:p-12 border border-white/10 backdrop-blur-sm">
+            <form class="space-y-8" action="#" method="POST">
+                <!-- Contact Info -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Nom Complet</label>
+                        <input type="text" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="John Doe" required />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                         <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Email</label>
+                        <input type="email" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="john@example.com" required />
+                    </div>
+                </div>
+
+                <!-- Project Details -->
+                 <div class="flex flex-col gap-2">
+                    <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Description du projet</label>
+                    <textarea rows="4" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="Décrivez votre idée, le style souhaité, et la symbolique..." required></textarea>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                     <div class="flex flex-col gap-2">
+                        <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Emplacement</label>
+                        <input type="text" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="Avant-bras, Cuisse..." required />
+                    </div>
+                     <div class="flex flex-col gap-2">
+                        <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Taille approximative (cm)</label>
+                        <input type="text" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="ex: 15x10cm" required />
+                    </div>
+                </div>
+
+                <!-- Budget & Dates -->
+                 <div class="grid md:grid-cols-2 gap-8">
+                     <div class="flex flex-col gap-2">
+                        <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Budget Envisagé</label>
+                        <select class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors">
+                            <option>Moins de 150€</option>
+                            <option>150€ - 300€</option>
+                            <option>300€ - 600€</option>
+                            <option>+ 600€</option>
+                        </select>
+                    </div>
+                     <div class="flex flex-col gap-2">
+                        <label class="font-heading uppercase tracking-wider text-sm text-gray-400">Disponibilités</label>
+                        <input type="text" class="bg-black/50 border-b border-white/20 p-3 focus:border-[var(--color-teal)] focus:outline-none transition-colors" placeholder="Semaine, Samedi..." />
+                    </div>
+                </div>
+
+                <div class="pt-8 text-center">
+                    <button type="submit" class="w-full md:w-auto px-12 py-4 bg-white text-black font-heading font-bold uppercase tracking-widest hover:bg-[var(--color-teal)] hover:text-white transition-colors">
+                        Envoyer la demande
+                    </button>
+                    <p class="mt-4 text-xs text-gray-500">Réponse sous 48h-72h. Vérifiez vos spams.</p>
+                </div>
+            </form>
+        </div>
+    </section>
+</Layout>
